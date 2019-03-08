@@ -1,4 +1,4 @@
-CREATE function fn_calc_runtime_admode(@adid bigint)
+Alter function fn_calc_runtime_admode(@adid bigint)
 returns smallint
 as
 begin
@@ -11,13 +11,13 @@ and bannertypeattributevalueid in (973624,973625,973626,973627)
 and isactive = 1
 
 if @roundid = 1
-	set @admode = 200
+	set @admode = 200 /*Titanium*/
 else if @roundid = 2
-	set @admode = 199
+	set @admode = 199 /*Platinum 1*/
 else if @roundid = 3
-	set @admode = 198
+	set @admode = 198 /*Platinum 2*/
 else if @roundid = 4
-	set @admode = 197
+	set @admode = 197 /*Platinum 3*/
 
 return (@admode)
 
