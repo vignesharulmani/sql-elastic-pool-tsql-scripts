@@ -7,7 +7,7 @@ declare @roundid int = 0,
 @admode smallint=0
 
 select @roundid = roundid from bannermapping bm (nolock) where adid = @adid 
-and bannertypeattributevalueid in (973624,973625,973626,973627)
+and bannertypeattributevalueid in (978101,978102,978103,978100)
 and isactive = 1
 
 if @roundid = 1

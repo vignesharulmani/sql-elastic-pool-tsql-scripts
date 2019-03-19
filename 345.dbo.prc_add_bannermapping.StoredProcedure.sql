@@ -27,7 +27,7 @@ set @cityid = dbo.fn_get_cityid_adid(@bannerid)
 	/*To get Next value*/
 	if 	@roundid = 0 
 	set @roundid = (select top 1 1 + max(roundid) from dbo.bannermapping (nolock) where roundid > 0
-		and bannertypeattributevalueid not in (973624,973625,973626,973627) /*exclude titanium & platinum*/ 
+		and bannertypeattributevalueid not in (978101,978102,978103,978100) /*exclude titanium & platinum*/ 
 				   )
 
 	if isnull(@roundid,0)=0
