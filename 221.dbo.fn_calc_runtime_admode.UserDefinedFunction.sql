@@ -6,9 +6,10 @@ begin
 declare @roundid int = 0,
 @admode smallint=0
 
-select @roundid = roundid from bannermapping bm (nolock) where adid = @adid 
-and bannertypeattributevalueid in (978101,978102,978103,978100)
-and isactive = 1
+select @roundid = bm.roundid from bannermapping bm (nolock) where bm.adid = @adid 
+and exists (select top 1 1 from attributevaluepriority avp (nolock) 
+		where avp.attributevalueid = bm.bannertypeattributevalueid and avp.isactive = 1)
+and bm.isactive = 1
 
 if @roundid = 1
 	set @admode = 200 /*Titanium*/
