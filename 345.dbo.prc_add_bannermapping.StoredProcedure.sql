@@ -14,6 +14,8 @@ Alter procedure prc_add_bannermapping
 ,@bannertypeattributevalueid int
 ,@roundid int = 0
 ,@isactive int
+,@startdate datetime = null
+,@enddate datetime = null
 as
 begin
 
@@ -34,8 +36,10 @@ set @cityid = dbo.fn_get_cityid_adid(@bannerid)
 	if isnull(@roundid,0)=0
 		set @roundid = 1
 
-	insert into bannermapping(bannerid,adid,bannertypeattributevalueid,roundid,isactive,crdate,cityid)
-		values (@bannerid,@adid,@bannertypeattributevalueid,@roundid,@isactive,getdate(),@cityid)
+	insert into bannermapping(bannerid,adid,bannertypeattributevalueid
+				,roundid,isactive,crdate,cityid,startdate,enddate)
+		values (@bannerid,@adid,@bannertypeattributevalueid
+				,@roundid,@isactive,getdate(),@cityid,@startdate,@enddate)
 
 
 end
