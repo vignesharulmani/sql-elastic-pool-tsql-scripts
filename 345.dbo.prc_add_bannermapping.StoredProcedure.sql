@@ -8,7 +8,7 @@ BEGIN
 EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[prc_add_bannermapping] AS'
 END
 GO
-ALTER procedure prc_add_bannermapping
+Alter procedure prc_add_bannermapping
 @bannerid bigint
 ,@adid bigint
 ,@bannertypeattributevalueid int
@@ -27,7 +27,9 @@ set @cityid = dbo.fn_get_cityid_adid(@bannerid)
 	delete from bannermapping where bannerid = @bannerid
 
 	/*To get Next value for premium gallery banners*/ 
-	if @bannertypeattributevalueid = 978104
+	if exists (select top 1 1 from dbo.attributevaluepriority avp (nolock) 
+					where avp.attributevalue = 'Premium Gallery' 
+						and avp.attributevalueid = @bannertypeattributevalueid)
 	set @roundid = (
 						select top 1 1 + max(bm.roundid) from dbo.bannermapping bm (nolock) 
 							where bm.roundid > 0
@@ -37,8 +39,12 @@ set @cityid = dbo.fn_get_cityid_adid(@bannerid)
 											and bm.bannertypeattributevalueid = @bannertypeattributevalueid) 
 				   )
 
-	if isnull(@roundid,0)=0 and @bannertypeattributevalueid = 978104
+	if isnull(@roundid,0)=0 and exists (select top 1 1 from dbo.attributevaluepriority avp (nolock) 
+											where avp.attributevalue = 'Premium Gallery' 
+												and avp.attributevalueid = @bannertypeattributevalueid)
+	begin
 		set @roundid = 5
+	end
 
 	insert into bannermapping(bannerid,adid,bannertypeattributevalueid
 				,roundid,isactive,crdate,cityid,startdate,enddate)
