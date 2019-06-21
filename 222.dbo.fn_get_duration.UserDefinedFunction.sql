@@ -1,4 +1,4 @@
-create function fn_get_duration(@subcategoryid int,@needid int,@addefid int,@admode smallint)
+Alter function fn_get_duration(@subcategoryid int,@needid int,@addefid int,@admode smallint)
 returns int
 as
 begin
@@ -11,6 +11,9 @@ select top 1 @returnvalue = duration from dbo.adconfig ac (nolock)
 		and ac.addefid = @addefid
 		and ac.admode = @admode
 		and ac.isactive = 1
+
+if @addefid = 66600
+	set @returnvalue = 180
 
 if isnull(nullif(@returnvalue,''),0)=0
 	set @returnvalue = 60
