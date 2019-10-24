@@ -10,6 +10,7 @@ select @roundid = bm.roundid from bannermapping bm (nolock) where bm.adid = @adi
 and exists (select top 1 1 from attributevaluepriority avp (nolock) 
 		where avp.attributevalueid = bm.bannertypeattributevalueid and avp.isactive = 1)
 and bm.isactive = 1
+and getdate() between bm.startdate and bm.enddate
 
 if @roundid = 1
 	set @admode = 200 /*Titanium*/

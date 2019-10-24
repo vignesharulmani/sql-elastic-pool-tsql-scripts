@@ -6,11 +6,11 @@ begin
 declare @returnvalue varchar(32) = ''
 
 
-if @admode = 110
+if @admode in (4,110)
 	set @returnvalue = 'Premium'
-else if @admode = 105
+else if @admode in (3,105)
 	set @returnvalue = 'Priority'
-else if @admode = 100
+else if @admode in (0,1,100) 
 	set @returnvalue = ''/*Free*/
 else if @admode = 200
 	set @returnvalue = 'Titanium'
